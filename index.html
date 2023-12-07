@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            margin: auto;
+        }
+    </style>
+    <title>Wander Steering Behavior with Particle Effects</title>
+</head>
+
+<body>
+    <canvas id="myCanvas"></canvas>
+    <script src="./src/classes.js"></script>
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const backgroundImage = new Image();
+        backgroundImage.src = './images/lake-bg.jpg';
+
+        const boatImage = new Image();
+        boatImage.src = './images/boat.png';
+
+
+
+        Promise.all([
+            new Promise((resolve) => backgroundImage.onload = resolve),
+            new Promise((resolve) => boatImage.onload = resolve),
+        ]).then(() => {
+            const Boat = new WanderBoat(200, 200, 20, 8, backgroundImage, boatImage);
+
+            function resizeCanvas() {
+                const maxCanvasHeight = window.innerHeight;
+                const aspectRatio = backgroundImage.width / backgroundImage.height;
+                canvas.height = maxCanvasHeight;
+                canvas.width = maxCanvasHeight * aspectRatio;
+            }
+
+            function draw() {
+                Boat.drawBackground();
+                Boat.drawBoat();
+                Boat.drawParticles();
+            }
+
+            function animate() {
+                Boat.update();
+                draw();
+                requestAnimationFrame(animate);
+            }
+
+            // Initial setup
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // Start the animation
+            animate();
+        }).catch(error => {
+            console.error("Error loading images:", error);
+        });
+
+
+    </script>
+</body>
+
+</html>
