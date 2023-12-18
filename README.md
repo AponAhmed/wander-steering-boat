@@ -2,7 +2,7 @@
 
 This HTML document showcases a simple animation of a boat moving on a lake, implemented using wander steering behavior. Additionally, it includes particle effects to simulate water movement around the boat.
 ## Demo
-[Codepen Here](https://codepen.io/apon22/pen/jOddGYr)
+[Codepen Here](https://codepen.io/apon22/full/jOddGYr)
 
 ![Alt Text](https://github.com/AponAhmed/wander-steering-boat/blob/main/images/canvas.png)
 
